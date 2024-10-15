@@ -28,7 +28,7 @@ public class TodoController {
         return todoService.getTodo();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Long updateTodo(@PathVariable Long id, @RequestBody TodoRequestDto requestDto) {
         return todoService.updateTodo(id, requestDto);
     }
