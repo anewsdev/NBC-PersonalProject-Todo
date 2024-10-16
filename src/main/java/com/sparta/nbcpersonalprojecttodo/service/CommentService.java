@@ -51,4 +51,23 @@ public class CommentService {
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public Long updateComment(Long commentId, CommentRequestDto requestDto) {
+        //댓글 조회
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다."));
+        //댓글 수정
+        comment.setContent(requestDto.getContent());
+        comment.setUsername(requestDto.getUsername());
+
+        //수정된 댓글을 반환
+        return commentRepository.save(comment).getId();
+    }
+
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다."));
+        commentRepository.delete(comment);
+    }
 }
