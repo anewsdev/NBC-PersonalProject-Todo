@@ -23,9 +23,18 @@ public class TodoController {
     }
 
     //일정 조회하기
-    @GetMapping
-    public List<TodoResponseDto> getTodo(){
-        return todoService.getTodo();
+//    @GetMapping
+//    public List<TodoResponseDto> getTodo(){
+//        return todoService.getTodo();
+//    }
+
+    //일정 페이징 조회
+    @GetMapping()
+    public List<TodoResponseDto> getPagedTodo(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        return todoService.getPagedTodo(page, size);
     }
 
     @PutMapping("/{todoId}")
