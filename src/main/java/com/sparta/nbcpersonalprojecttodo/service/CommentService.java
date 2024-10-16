@@ -43,4 +43,12 @@ public class CommentService {
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<CommentResponseDto> getCommentByTodoId(Long todoId) {
+        List<Comment> comments = commentRepository.findAllByTodoId(todoId);
+        return comments.stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

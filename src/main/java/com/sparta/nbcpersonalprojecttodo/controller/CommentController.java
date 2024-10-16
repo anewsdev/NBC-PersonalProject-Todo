@@ -27,4 +27,10 @@ public class CommentController {
         return comments;
     }
 
+    @GetMapping("/{todoId}")
+    public List<CommentResponseDto> getCommentByTodoId(@PathVariable Long todoId){
+        List<CommentResponseDto> comments = commentService.getCommentByTodoId(todoId);
+        return comments;
+    }
+
 }
