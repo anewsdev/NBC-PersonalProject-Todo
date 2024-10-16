@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -25,6 +27,9 @@ public class Todo extends Timestamped {
 
     @Column(name = "username" , nullable = false)
     private String username;
+
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public Todo(TodoRequestDto requestDto){
         this.title = requestDto.getTitle();
