@@ -3,9 +3,7 @@ package com.sparta.nbcpersonalprojecttodo.service;
 import com.sparta.nbcpersonalprojecttodo.dto.TodoRequestDto;
 import com.sparta.nbcpersonalprojecttodo.dto.TodoResponseDto;
 import com.sparta.nbcpersonalprojecttodo.entity.Todo;
-import com.sparta.nbcpersonalprojecttodo.entity.User;
 import com.sparta.nbcpersonalprojecttodo.repository.TodoRepository;
-import com.sparta.nbcpersonalprojecttodo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,18 +20,11 @@ import java.util.stream.Collectors;
 public class TodoService {
 
     private final TodoRepository todoRepository;
-    private final UserRepository userRepository;
 
 
     public TodoResponseDto createTodo(TodoRequestDto requestDto) {
-        User user = userRepository.findById(requestDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
         Todo todo = new Todo(requestDto);
-        todo.setUser(user);  // User 설정
-
-        Todo savedTodo = todoRepository.save(todo);
-        return new TodoResponseDto(savedTodo);
+        return new TodoResponseDto(todoRepository.save(todo));
     }
 
     public List<TodoResponseDto> getTodo() {
@@ -71,4 +62,5 @@ public class TodoService {
 
         return todos.map(TodoResponseDto::new).stream().toList();
     }
+
 }

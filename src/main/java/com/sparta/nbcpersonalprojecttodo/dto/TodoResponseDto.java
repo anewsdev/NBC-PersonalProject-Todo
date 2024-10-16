@@ -19,10 +19,10 @@ public class TodoResponseDto {
         this.id = todo.getId();
         this.title = todo.getTitle();
         this.content = todo.getContent();
-        this.username = todo.getUser().getUsername();
+        this.username = todo.getUsername();
         this.createdAt = todo.getCreatedAt();
         this.modifiedAt = todo.getModifiedAt();
-        this.commentCount = (todo.getComments() != null) ? todo.getComments().size() : 0;
+        this.commentCount = todo.getComments() != null ? todo.getComments().size() : 0;
     }
 }
 
