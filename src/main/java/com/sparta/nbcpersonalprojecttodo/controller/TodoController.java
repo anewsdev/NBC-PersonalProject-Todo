@@ -28,14 +28,14 @@ public class TodoController {
         return todoService.getTodo();
     }
 
-    @PutMapping("/{id}")
-    public Long updateTodo(@PathVariable Long id, @RequestBody TodoRequestDto requestDto) {
-        return todoService.updateTodo(id, requestDto);
+    @PutMapping("/{todoId}")
+    public Long updateTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto requestDto) {
+        return todoService.updateTodo(todoId, requestDto);
     }
 
-    @DeleteMapping("/{id}")
-    public Long deleteTodo(@PathVariable Long id){
-        return todoService.deleteTodo(id);
+    @DeleteMapping("/{todoId}")
+    public Long deleteTodo(@PathVariable Long todoId){
+        return todoService.deleteTodo(todoId);
     }
 
 }
