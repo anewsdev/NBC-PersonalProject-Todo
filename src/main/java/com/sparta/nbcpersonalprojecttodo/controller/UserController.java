@@ -22,11 +22,7 @@ public class UserController {
         return userService.createUser(requestDto);
     }
 
-    //유저 전체조회
-    @GetMapping
-    public List<UserResponseDto> getAllUsers() {
-        List<UserResponseDto> users = userService.getAllUser();
-    }
+
 
     //유저 단건조회
 
