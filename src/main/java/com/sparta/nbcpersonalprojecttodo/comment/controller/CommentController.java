@@ -1,8 +1,8 @@
-package com.sparta.nbcpersonalprojecttodo.controller;
+package com.sparta.nbcpersonalprojecttodo.comment.controller;
 
-import com.sparta.nbcpersonalprojecttodo.dto.CommentRequestDto;
-import com.sparta.nbcpersonalprojecttodo.dto.CommentResponseDto;
-import com.sparta.nbcpersonalprojecttodo.service.CommentService;
+import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentRequestDto;
+import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentResponseDto;
+import com.sparta.nbcpersonalprojecttodo.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +17,9 @@ public class CommentController {
     private final CommentService commentService;
 
     //댓글 작성
-    @PostMapping("/{todoId}")
-    public CommentResponseDto createComment(@RequestBody CommentRequestDto requestDto, @PathVariable Long todoId){
-        return commentService.createComment(requestDto, todoId);
+    @PostMapping
+    public CommentResponseDto createComment(@RequestBody CommentRequestDto requestDto){
+        return commentService.createComment(requestDto);
     }
 
     //댓글 전체 조회
@@ -38,7 +38,7 @@ public class CommentController {
 
     //댓글 수정
     @PutMapping("/{commentId}")
-    public ResponseEntity<Void> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto){
+    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto){
         commentService.updateComment(commentId, requestDto);
         return ResponseEntity.ok().build();  // 200 OK 반환
     }

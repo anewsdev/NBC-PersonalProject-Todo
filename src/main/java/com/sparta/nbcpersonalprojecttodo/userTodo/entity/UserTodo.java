@@ -1,5 +1,7 @@
-package com.sparta.nbcpersonalprojecttodo.entity;
+package com.sparta.nbcpersonalprojecttodo.userTodo.entity;
 
+import com.sparta.nbcpersonalprojecttodo.todo.entity.Todo;
+import com.sparta.nbcpersonalprojecttodo.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

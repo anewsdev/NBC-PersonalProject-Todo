@@ -1,4 +1,4 @@
-package com.sparta.nbcpersonalprojecttodo.dto;
+package com.sparta.nbcpersonalprojecttodo.todo.dto;
 
 import lombok.Getter;
 
@@ -6,5 +6,4 @@ import lombok.Getter;
 public class TodoRequestDto {
     private String title;
     private String content;
-    private String username;
 }

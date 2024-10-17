@@ -1,4 +1,4 @@
-package com.sparta.nbcpersonalprojecttodo.entity;
+package com.sparta.nbcpersonalprojecttodo.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

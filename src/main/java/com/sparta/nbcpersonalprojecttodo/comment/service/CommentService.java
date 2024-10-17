@@ -1,11 +1,13 @@
-package com.sparta.nbcpersonalprojecttodo.service;
+package com.sparta.nbcpersonalprojecttodo.comment.service;
 
-import com.sparta.nbcpersonalprojecttodo.dto.CommentRequestDto;
-import com.sparta.nbcpersonalprojecttodo.dto.CommentResponseDto;
-import com.sparta.nbcpersonalprojecttodo.entity.Comment;
-import com.sparta.nbcpersonalprojecttodo.entity.Todo;
-import com.sparta.nbcpersonalprojecttodo.repository.CommentRepository;
-import com.sparta.nbcpersonalprojecttodo.repository.TodoRepository;
+import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentRequestDto;
+import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentResponseDto;
+import com.sparta.nbcpersonalprojecttodo.comment.entity.Comment;
+import com.sparta.nbcpersonalprojecttodo.todo.entity.Todo;
+import com.sparta.nbcpersonalprojecttodo.comment.repository.CommentRepository;
+import com.sparta.nbcpersonalprojecttodo.todo.repository.TodoRepository;
+import com.sparta.nbcpersonalprojecttodo.user.entity.User;
+import com.sparta.nbcpersonalprojecttodo.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,16 +21,22 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public CommentResponseDto createComment(CommentRequestDto requestDto, Long todoId) {
+    public CommentResponseDto createComment(CommentRequestDto requestDto) {
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
         //todoId로 일정 있는지 확인
-        Todo todo = todoRepository.findById(todoId)
+        Todo todo = todoRepository.findById(requestDto.getTodoId())
                 .orElseThrow(()-> new IllegalArgumentException("해당 일정이 없습니다."));
 
-        //comment 생성 시 연관관계 설정
-        Comment comment = new Comment(requestDto);
-        comment.setTodo(todo);
+        Comment comment = Comment.builder()
+                .content(requestDto.getContent())
+                .user(user)
+                .todo(todo)
+                .build();
 
         //comment 저장
         commentRepository.save(comment);
@@ -53,16 +61,19 @@ public class CommentService {
     }
 
     @Transactional
-    public Long updateComment(Long commentId, CommentRequestDto requestDto) {
+    public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto) {
         //댓글 조회
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다."));
-        //댓글 수정
-        comment.setContent(requestDto.getContent());
-        comment.setUsername(requestDto.getUsername());
+        //작성자 확인
+        if(!comment.getUser().getId().equals(requestDto.getUserId())) {
+            throw new RuntimeException("댓글 수정 권한이 없습니다.");
+        }
+        comment.update(requestDto.getContent());
+
 
         //수정된 댓글을 반환
-        return commentRepository.save(comment).getId();
+        return new CommentResponseDto(comment);
     }
 
     public void deleteComment(Long commentId) {

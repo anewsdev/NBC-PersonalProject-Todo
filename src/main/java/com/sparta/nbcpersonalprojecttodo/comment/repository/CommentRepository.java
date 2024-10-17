@@ -1,6 +1,6 @@
-package com.sparta.nbcpersonalprojecttodo.repository;
+package com.sparta.nbcpersonalprojecttodo.comment.repository;
 
-import com.sparta.nbcpersonalprojecttodo.entity.Comment;
+import com.sparta.nbcpersonalprojecttodo.comment.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

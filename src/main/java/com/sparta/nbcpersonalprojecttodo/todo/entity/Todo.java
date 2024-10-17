@@ -1,11 +1,16 @@
-package com.sparta.nbcpersonalprojecttodo.entity;
+package com.sparta.nbcpersonalprojecttodo.todo.entity;
 
-import com.sparta.nbcpersonalprojecttodo.dto.TodoRequestDto;
+import com.sparta.nbcpersonalprojecttodo.todo.dto.TodoRequestDto;
+import com.sparta.nbcpersonalprojecttodo.comment.entity.Comment;
+import com.sparta.nbcpersonalprojecttodo.common.entity.Timestamped;
+import com.sparta.nbcpersonalprojecttodo.userTodo.entity.UserTodo;
+import com.sparta.nbcpersonalprojecttodo.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +37,7 @@ public class Todo extends Timestamped {
 
     // Todo와 유저의 N:M 관계를 위한 중간 테이블
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserTodo> assignedUsers;  // 담당 유저들
+    private List<UserTodo> assignedUsers = new ArrayList<>();  // 담당 유저들
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
@@ -41,6 +46,11 @@ public class Todo extends Timestamped {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.creator = creator;
+    }
+
+    public Todo(TodoRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
     }
 
     public void update(TodoRequestDto requestDto) {
