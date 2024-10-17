@@ -87,3 +87,7 @@
 
 ![image](https://github.com/user-attachments/assets/1548cc72-1282-4cf9-a85b-34e63737f22a)
 
+# 트러블 슈팅
+
+https://a-new-s.tistory.com/36
+
