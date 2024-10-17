@@ -30,8 +30,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    //유저 수정
-
     //유저 삭제
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);

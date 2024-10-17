@@ -27,8 +27,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    //유저 수정
-
     //유저 삭제
     @DeleteMapping("/{userId}")
     public void deleteUser(@RequestParam Long userId){
