@@ -89,5 +89,5 @@
 
 # 트러블 슈팅
 
-https://a-new-s.tistory.com/36
+https://a-new-s.tistory.com/37
 
