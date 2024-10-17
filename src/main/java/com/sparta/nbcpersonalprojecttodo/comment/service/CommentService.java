@@ -75,7 +75,7 @@ public class CommentService {
         //수정된 댓글을 반환
         return new CommentResponseDto(comment);
     }
-
+    @Transactional
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다."));

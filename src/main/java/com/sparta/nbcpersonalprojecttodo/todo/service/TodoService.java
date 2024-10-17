@@ -43,7 +43,7 @@ public class TodoService {
                 .map(TodoResponseDto::new)
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     //페이징 처리된 일정 조회 메서드
     public List<TodoResponseDto> getPagedTodo(int page, int size) {
         //페이지 번호, 사이즈 파라미터로 전달
@@ -53,7 +53,7 @@ public class TodoService {
 
         return todos.map(TodoResponseDto::new).stream().toList();
     }
-
+    @Transactional
     //일정 단건조회
     public TodoResponseDto getTodoById(Long todoId) {
         Todo todo = todoRepository.findById(todoId)
@@ -81,7 +81,7 @@ public class TodoService {
 
         return new TodoResponseDto(todo);
     }
-
+    @Transactional
     //일정 삭제
     public void deleteTodo(Long id) {
         Todo todo = findTodo(id);

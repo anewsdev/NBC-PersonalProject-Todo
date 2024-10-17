@@ -6,6 +6,7 @@ import com.sparta.nbcpersonalprojecttodo.user.entity.User;
 import com.sparta.nbcpersonalprojecttodo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class UserService {
                 .map(user -> new UserResponseDto(user.getId(), user.getUsername(), user.getEmail(), user.getCreatedAt(), user.getModifiedAt()))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     //유저 삭제
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
