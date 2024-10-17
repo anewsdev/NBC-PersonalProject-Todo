@@ -3,6 +3,7 @@ package com.sparta.nbcpersonalprojecttodo.todo.controller;
 import com.sparta.nbcpersonalprojecttodo.todo.dto.TodoRequestDto;
 import com.sparta.nbcpersonalprojecttodo.todo.dto.TodoResponseDto;
 import com.sparta.nbcpersonalprojecttodo.todo.service.TodoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class TodoController {
 
     //일정 생성하기
     @PostMapping
-    public TodoResponseDto createTodo(@RequestBody TodoRequestDto requestDto, @RequestParam Long creatorId) {
+    public TodoResponseDto createTodo(@RequestBody @Valid TodoRequestDto requestDto, @RequestParam Long creatorId) {
         return todoService.createTodo(requestDto, creatorId);
     }
 
@@ -40,7 +41,7 @@ public class TodoController {
 
     //일정 수정
     @PutMapping("/{todoId}")
-    public TodoResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto requestDto) {
+    public TodoResponseDto updateTodo(@PathVariable Long todoId, @RequestBody @Valid TodoRequestDto requestDto) {
         return todoService.updateTodo(todoId, requestDto);
     }
     //일정 삭제

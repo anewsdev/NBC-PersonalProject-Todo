@@ -3,6 +3,7 @@ package com.sparta.nbcpersonalprojecttodo.comment.controller;
 import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentRequestDto;
 import com.sparta.nbcpersonalprojecttodo.comment.dto.CommentResponseDto;
 import com.sparta.nbcpersonalprojecttodo.comment.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class CommentController {
 
     //댓글 작성
     @PostMapping
-    public CommentResponseDto createComment(@RequestBody CommentRequestDto requestDto){
+    public CommentResponseDto createComment(@RequestBody @Valid CommentRequestDto requestDto){
         return commentService.createComment(requestDto);
     }
 
@@ -38,7 +39,7 @@ public class CommentController {
 
     //댓글 수정
     @PutMapping("/{commentId}")
-    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto){
+    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long commentId, @RequestBody @Valid CommentRequestDto requestDto){
         commentService.updateComment(commentId, requestDto);
         return ResponseEntity.ok().build();  // 200 OK 반환
     }

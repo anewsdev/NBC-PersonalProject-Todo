@@ -3,6 +3,7 @@ package com.sparta.nbcpersonalprojecttodo.user.controller;
 import com.sparta.nbcpersonalprojecttodo.user.dto.UserRequestDto;
 import com.sparta.nbcpersonalprojecttodo.user.dto.UserResponseDto;
 import com.sparta.nbcpersonalprojecttodo.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class UserController {
 
     //유저 생성
     @PostMapping
-    public UserResponseDto createUser(@RequestBody UserRequestDto requestDto){
+    public UserResponseDto createUser(@RequestBody @Valid UserRequestDto requestDto){
         return userService.createUser(requestDto);
     }
 
